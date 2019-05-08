@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Filters;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class HousesFilter extends QueryFilter
 {
@@ -20,6 +21,12 @@ class HousesFilter extends QueryFilter
     }
     public function garages($value){
         $this->builder->where('garages',$value);
+    }
+    public function lowPrice($value){
+        $this->builder->where('price','>=',$value);
+    }
+    public function maxPrice($value){
+        $this->builder->where('price','<=',$value);
     }
     public function filters(){
         return $this->request->all();

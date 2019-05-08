@@ -1844,6 +1844,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1853,26 +1874,41 @@ __webpack_require__.r(__webpack_exports__);
       bathrooms: null,
       storeys: null,
       garages: null,
+      lowPrice: null,
+      maxPrice: null,
       houses: [],
       file: '',
-      showmsg: false
+      showmsg: false,
+      busy: false
     };
   },
   methods: {
     fetch: function fetch() {
       var _this = this;
 
-      axios.get('api/houses', {
+      this.busy = true, axios.get('api/houses', {
         params: {
           name: this.name,
           bedrooms: this.bedrooms,
           bathrooms: this.bathrooms,
           storeys: this.storeys,
-          garages: this.garages
+          garages: this.garages,
+          lowPrice: this.lowPrice,
+          maxPrice: this.maxPrice
         }
       }).then(function (response) {
-        _this.houses = response.data;
+        _this.houses = response.data, _this.busy = false;
       });
+    },
+    reset: function reset() {
+      this.name = null, this.price = null;
+      this.bedrooms = null;
+      this.bathrooms = null;
+      this.storeys = null;
+      this.garages = null;
+      this.lowPrice = null;
+      this.maxPrice = null;
+      this.fetch();
     },
     uploadCsv: function uploadCsv() {
       var _this2 = this;
@@ -1884,7 +1920,7 @@ __webpack_require__.r(__webpack_exports__);
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        _this2.showmsg = true, _this2.fetch(), setTimeout(function () {
+        _this2.fetch(), _this2.showmsg = true, setTimeout(function () {
           _this2.showmsg = false;
         }, 3000);
       });
@@ -1895,6 +1931,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.fetch();
+  },
+  computed: {
+    houses: function houses() {
+      var self = this;
+      return self.items.filter(function (item) {
+        return item.indexOf(self.houses) !== -1;
+      });
+    }
   }
 });
 
@@ -37216,145 +37260,227 @@ var render = function() {
           },
           [
             _c("form", { staticClass: "d-flex justify-content-around" }, [
-              _c("div", { staticClass: "filter" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.name,
-                      expression: "name"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", placeholder: "Name" },
-                  domProps: { value: _vm.name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "filter" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.name,
+                        expression: "name"
                       }
-                      _vm.name = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "filter" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.bedrooms,
-                      expression: "bedrooms"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "number", placeholder: "Спальни" },
-                  domProps: { value: _vm.bedrooms },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.bedrooms = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "filter" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.bathrooms,
-                      expression: "bathrooms"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "number", placeholder: "Ванные комнаты" },
-                  domProps: { value: _vm.bathrooms },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.bathrooms = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "filter" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.storeys,
-                      expression: "storeys"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "number", placeholder: "Этажи" },
-                  domProps: { value: _vm.storeys },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.storeys = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "filter" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.garages,
-                      expression: "garages"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "number", placeholder: "Гаражи" },
-                  domProps: { value: _vm.garages },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.garages = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "submit" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "submit" },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Name" },
+                    domProps: { value: _vm.name },
                     on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.fetch($event)
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.name = $event.target.value
                       }
                     }
-                  },
-                  [
-                    _vm._v(
-                      "\n                            Поиск\n                        "
-                    )
-                  ]
-                )
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "filter" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.bedrooms,
+                        expression: "bedrooms"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", placeholder: "Спальни" },
+                    domProps: { value: _vm.bedrooms },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.bedrooms = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "filter" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.bathrooms,
+                        expression: "bathrooms"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", placeholder: "Ванные комнаты" },
+                    domProps: { value: _vm.bathrooms },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.bathrooms = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "filter" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.storeys,
+                        expression: "storeys"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", placeholder: "Этажи" },
+                    domProps: { value: _vm.storeys },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.storeys = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "filter" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.garages,
+                        expression: "garages"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", placeholder: "Гаражи" },
+                    domProps: { value: _vm.garages },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.garages = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-100" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "filter" }, [
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v("Минимальная цена: "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.lowPrice,
+                          expression: "lowPrice"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number" },
+                      domProps: { value: _vm.lowPrice },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.lowPrice = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "filter" }, [
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v("Максимальная цена: "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.maxPrice,
+                          expression: "maxPrice"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number" },
+                      domProps: { value: _vm.maxPrice },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.maxPrice = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "submit" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit", disable: _vm.busy },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.fetch($event)
+                        }
+                      }
+                    },
+                    [
+                      _vm.busy
+                        ? _c("i", { staticClass: "fa fa-spin fa-spinner" })
+                        : _vm._e(),
+                      _vm._v(
+                        "\n                                Поиск\n                            "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "submit" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-default",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.reset($event)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                                Reset!\n                            "
+                      )
+                    ]
+                  )
+                ])
               ])
             ])
           ]
@@ -37414,24 +37540,32 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.houses, function(house) {
-            return _c("tr", [
-              _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(house.id))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(house.name))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(house.price))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(house.bedrooms))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(house.bathrooms))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(house.storeys))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(house.garages))])
-            ])
-          }),
-          0
+          [
+            !_vm.houses.length
+              ? _c("span", [_vm._v("Совпадения не найдены")])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._l(_vm.houses, function(house) {
+              return _c("tr", [
+                _c("th", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(house.id))
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(house.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(house.price))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(house.bedrooms))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(house.bathrooms))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(house.storeys))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(house.garages))])
+              ])
+            })
+          ],
+          2
         )
       ])
     ])

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\House;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+//        House::truncate();
+
+        factory(App\House::class,50)->create();
     }
 }

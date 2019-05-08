@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\House;
+use App\Http\Controllers\Filters\HousesFilter;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class HouseController extends Controller
 {
@@ -33,6 +35,6 @@ class HouseController extends Controller
                 'garages' => $row['Garages']
             ]);
         }
-        return redirect()->back()->with('successfully', 'Файл успешно импортирован');
+        return redirect()->back();
     }
 }

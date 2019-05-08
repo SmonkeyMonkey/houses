@@ -16,5 +16,5 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/houses','HouseController@index');
-Route::post('/import','HouseController@importHouse');
+Route::get('/houses','Api\HouseController@index');
+Route::post('/import','Api\HouseController@importHouse');

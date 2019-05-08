@@ -17,7 +17,5 @@
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/','HomeController@index');
-Route::post('/import','HouseController@importHouse')->name('importCsv');
-Route::get('/test','HouseController@index');
